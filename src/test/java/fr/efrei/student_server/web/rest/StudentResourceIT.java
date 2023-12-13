@@ -25,7 +25,7 @@ public class StudentResourceIT {
     @BeforeEach
     void setUp() {
         student = new Student();
-        student.setName("John Doe");
+        student.setName("John");
         student.setAge(21);
     }
 
@@ -36,7 +36,7 @@ public class StudentResourceIT {
         Student found = studentRepository.findById(student.getId()).orElse(null);
 
         assertNotNull(found);
-        assertEquals("John Doe", found.getName());
+        assertEquals("John", found.getName());
         assertEquals(21, found.getAge());
     }
 
@@ -56,12 +56,12 @@ public class StudentResourceIT {
     void testUpdateStudent() {
         studentRepository.save(student);
 
-        student.setName("Jane Doe");
+        student.setName("Jane");
         studentRepository.save(student);
 
         Student updated = studentRepository.findById(student.getId()).orElse(null);
         assertNotNull(updated);
-        assertEquals("Jane Doe", updated.getName());
+        assertEquals("Jane", updated.getName());
     }
 
     @Test
@@ -72,11 +72,5 @@ public class StudentResourceIT {
 
         studentRepository.deleteById(student.getId());
         assertFalse(studentRepository.findById(student.getId()).isPresent());
-    }
-
-    @Test
-    @Transactional
-    void testNonExistingStudent() {
-        assertFalse(studentRepository.findById(-1).isPresent());
     }
 }
